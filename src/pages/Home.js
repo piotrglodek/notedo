@@ -15,10 +15,7 @@ export const Home = () => {
           Notedo is tool that allows you to add, edit and delete notes in any
           time you want.
         </p>
-        <Link
-          className='btn btn--big btn--filled'
-          to='notedo.netlify.app/notedo'
-        >
+        <Link className='btn btn--big btn--filled' to='/notedo'>
           Try notedo
         </Link>
       </div>
