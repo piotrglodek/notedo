@@ -54,7 +54,7 @@ $weights: (
 */
 
 @mixin Media($deviceName) {
-  @each $breakpoint, $sizePx in $breakpoints {
+  @each $breakpoint, $sizePx in $breakPoints {
     @if $deviceName == $breakpoint {
       @media screen and(min-width: $sizePx) {
         @content;
@@ -78,7 +78,12 @@ $weights: (
   }
 }
 
-@mixin Flex($wrap: nowrap, $direction: row, $align: start, $justify: start) {
+@mixin Flex(
+  $wrap: nowrap,
+  $direction: row,
+  $align: flex-start,
+  $justify: flex-start
+) {
   display: flex;
   flex-wrap: $wrap;
   flex-direction: $direction;
