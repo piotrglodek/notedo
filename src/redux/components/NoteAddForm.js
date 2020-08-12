@@ -45,7 +45,7 @@ export const NoteAddForm = () => {
   };
   return (
     <>
-      <button onClick={toggleForm} className='btn-circle'>
+      <button onClick={toggleForm} className='btn-circle form__add-icon'>
         <AddIconSvg className='btn-circle__icon' />
       </button>
       <div className={`${showForm ? 'form form--active' : 'form'}`}>
