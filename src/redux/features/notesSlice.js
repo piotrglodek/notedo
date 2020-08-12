@@ -1,8 +1,11 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+// localStorage
+import { loadState } from '../../localStorage';
+const initialState = loadState();
 
 const notesSlice = createSlice({
   name: 'notes',
-  initialState: [],
+  initialState,
   reducers: {
     noteAdded: {
       reducer(state, action) {
