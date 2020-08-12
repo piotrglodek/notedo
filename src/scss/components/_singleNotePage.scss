@@ -1,0 +1,19 @@
+.single-note {
+  padding: 2rem;
+
+  &__link {
+    display: block;
+    margin-bottom: 2rem;
+    &:active {
+      svg {
+        fill: GetColor(primaryTint);
+      }
+    }
+  }
+  &__title {
+    @include GetFontSize(default, $h3-fonts);
+  }
+  &__text {
+    @include GetFontSize(default, $p-fonts);
+  }
+}
