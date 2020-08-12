@@ -9,6 +9,12 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 // scss
 import './scss/index.scss';
+// localStorage
+import { saveState } from './localStorage';
+
+store.subscribe(() => {
+  saveState(store.getState().notes);
+});
 
 ReactDOM.render(
   <Provider store={store}>
