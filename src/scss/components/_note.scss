@@ -1,0 +1,53 @@
+.note {
+  width: 100%;
+  padding: 1.6rem;
+  @include Media(tablet) {
+    width: 50%;
+    padding: 3rem;
+  }
+  @include Media(laptop) {
+    width: 33.3%;
+  }
+
+  &__container {
+    height: 100%;
+    min-height: 17.2rem;
+    border-radius: 0.4rem;
+    @include BoxShadow(4);
+    position: relative;
+    padding: 2rem 1.6rem 0.8rem;
+    @include Flex(nowrap, column, flex-start, space-between);
+  }
+
+  &__title {
+    @include GetFontSize(default, $h6-fonts);
+    font-weight: GetWeight(medium);
+    margin: 0;
+  }
+  &__text {
+    margin: 0;
+    @include GetFontSize(small, $p-fonts);
+    color: GetColor(grey);
+  }
+  &__favorite {
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    width: 2.4rem;
+    height: 2.4rem;
+
+    &:hover {
+      svg {
+        fill: GetColor(primary);
+      }
+    }
+  }
+  &__btn {
+    margin-right: 1rem;
+  }
+}

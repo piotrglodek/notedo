@@ -1,0 +1,101 @@
+.form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 997;
+  background-color: GetColor(white);
+  transform: translateX(100%);
+  padding: 1.8rem 3.2rem;
+  transition: transform 0.5s ease;
+  @include Media(largeDesktop) {
+    left: unset;
+    bottom: unset;
+    transform: none;
+  }
+
+  &--active {
+    transform: translateX(0);
+    overflow-y: auto;
+  }
+  &__close {
+    @include Media(largeDesktop) {
+      display: none;
+    }
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+    top: 1.8rem;
+    right: 3.2rem;
+    display: grid;
+    place-items: center;
+    &:hover {
+      .form__close-icon {
+        fill: GetColor(primaryTint);
+      }
+    }
+    &-icon {
+      fill: GetColor(primary);
+    }
+  }
+  &__container {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__label {
+    width: 100%;
+    max-width: 32.8rem;
+    margin-bottom: 2.6rem;
+    display: block;
+    position: relative;
+  }
+  &__input {
+    outline: none;
+    padding: 1.6rem;
+    border-radius: 0.4rem;
+    border: 2px solid GetColor(grey);
+    width: 100%;
+    max-width: 32.8rem;
+    transition: border-color 0.3s ease;
+    @include GetFontSize(default, $p-fonts);
+    &:focus {
+      border-color: GetColor(primary);
+      & ~ .form__support-text {
+        color: GetColor(primary);
+        transform: translateY(-225%) scale(1);
+      }
+    }
+    &-textarea {
+      height: 30rem;
+      resize: none;
+      overflow-y: auto;
+    }
+  }
+  &__support-text {
+    background-color: GetColor(white);
+    color: GetColor(grey);
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 2.7rem;
+    left: 2rem;
+    padding: 0.2rem;
+    transform: translateY(-50%) scale(1.2);
+    &.active {
+      color: GetColor(grey);
+      transform: translateY(-225%) scale(1);
+    }
+  }
+  &__error {
+    display: none;
+    @include GetFontSize(small, $p-fonts);
+    color: GetColor(error);
+    margin-left: 1.6rem;
+    padding-top: 0.2rem;
+    &--active {
+      display: inline-block;
+    }
+  }
+}
