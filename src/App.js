@@ -5,6 +5,8 @@ import { Switch, Route } from 'react-router-dom';
 import { Home } from './pages/Home';
 import { PageNotFound } from './pages/PageNotFound';
 import { Notedo } from './pages/Notedo';
+// redux
+import { SingleNotePage } from './redux/components/SingleNotePage';
 
 function App() {
   return (
@@ -12,8 +14,8 @@ function App() {
       <Switch>
         <Route exact path='/' component={Home} />
         <Route exact path='/notedo' component={Notedo} />
-        <Route path='*' component={PageNotFound} />
         <Route exact path='/notedo/note/:noteId' component={SingleNotePage} />
+        <Route path='*' component={PageNotFound} />
       </Switch>
     </div>
   );
