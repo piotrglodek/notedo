@@ -12,7 +12,7 @@ $h2-fonts: (
   default: 2.4rem,
 );
 
-@mixin ImplementTypography($name, $array) {
+@mixin GetFontSize($name, $array) {
   @each $property, $fontSize in $array {
     @if $property == $name {
       font-size: $fontSize;
