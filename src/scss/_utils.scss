@@ -77,3 +77,11 @@ $weights: (
     @error "Invalid argument for $dp: { $dp }, use only values[2, 4, 6]";
   }
 }
+
+@mixin Flex($wrap: nowrap, $direction: row, $align: start, $justify: start) {
+  display: flex;
+  flex-wrap: $wrap;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+}
