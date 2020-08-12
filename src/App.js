@@ -4,12 +4,14 @@ import { Switch, Route } from 'react-router-dom';
 // page
 import { Home } from './pages/Home';
 import { PageNotFound } from './pages/PageNotFound';
+import { Notedo } from './pages/Notedo';
 
 function App() {
   return (
     <div className='app-container'>
       <Switch>
         <Route exact path='/' component={Home} />
+        <Route exact path='/notedo' component={Notedo} />
         <Route path='*' component={PageNotFound} />
       </Switch>
     </div>
