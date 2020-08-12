@@ -1,0 +1,54 @@
+.btn {
+  border-radius: 0.4rem;
+  transition: all 0.2s ease;
+  @include GetFontSize(small, $p-fonts);
+  font-weight: GetWeight(medium);
+  letter-spacing: 1.25px;
+
+  &-circle {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 4rem;
+    right: 4rem;
+    &:hover {
+      svg {
+        fill: GetColor(primaryTint);
+      }
+    }
+    &__icon {
+      fill: GetColor(primary);
+    }
+  }
+
+  &--small {
+    padding: 1rem 2.8rem;
+  }
+
+  &--big {
+    padding: 1.6rem 2.4rem;
+  }
+
+  &--filled {
+    background-color: GetColor(primary);
+    color: GetColor(white);
+
+    &:active {
+      background-color: GetColor(primaryTint);
+    }
+  }
+  &--outlined {
+    background-color: transparent;
+    border: 0.1rem solid ColorAlpha(GetColor(black), 0.3);
+    color: GetColor(primary);
+    &:active {
+      color: GetColor(primaryTint);
+      border-color: GetColor(primaryTint);
+    }
+  }
+
+  &:hover {
+    @include BoxShadow(4);
+  }
+}
