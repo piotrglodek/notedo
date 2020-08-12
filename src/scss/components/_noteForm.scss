@@ -9,7 +9,7 @@
   transform: translateX(100%);
   padding: 1.8rem 3.2rem;
   transition: transform 0.5s ease;
-  @include Media(largeDesktop) {
+  @include Media(extraLarge) {
     left: unset;
     bottom: unset;
     transform: none;
@@ -20,7 +20,7 @@
     overflow-y: auto;
   }
   &__close {
-    @include Media(largeDesktop) {
+    @include Media(extraLarge) {
       display: none;
     }
     width: 3rem;
@@ -41,9 +41,7 @@
   }
   &__container {
     margin-top: 4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include Flex(nowrap, column, center);
   }
   &__label {
     width: 100%;
@@ -53,12 +51,13 @@
     position: relative;
   }
   &__input {
+    display: block;
     outline: none;
     padding: 1.6rem;
     border-radius: 0.4rem;
     border: 2px solid GetColor(grey);
-    width: 100%;
     max-width: 32.8rem;
+    width: 100%;
     transition: border-color 0.3s ease;
     @include GetFontSize(default, $p-fonts);
     &:focus {
@@ -96,6 +95,11 @@
     padding-top: 0.2rem;
     &--active {
       display: inline-block;
+    }
+  }
+  &__add-icon {
+    @include Media(extraLarge) {
+      display: none;
     }
   }
 }
