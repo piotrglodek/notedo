@@ -13,6 +13,7 @@ function App() {
         <Route exact path='/' component={Home} />
         <Route exact path='/notedo' component={Notedo} />
         <Route path='*' component={PageNotFound} />
+        <Route exact path='/notedo/note/:noteId' component={SingleNotePage} />
       </Switch>
     </div>
   );
