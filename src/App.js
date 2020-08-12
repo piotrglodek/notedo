@@ -1,6 +1,8 @@
 import React from 'react';
 // react-router-dom
 import { Switch, Route } from 'react-router-dom';
+// page
+import { Home } from './pages/Home';
 
 function App() {
   return (
