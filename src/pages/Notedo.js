@@ -8,6 +8,7 @@ import { ReactComponent as NotesIconSvg } from '../assets/icons/description_icon
 import { ReactComponent as FavoriteIconSvg } from '../assets/icons/favorite-filed_icon.svg';
 // redux components
 import { Note } from '../redux/components/Note';
+import { NoteAddForm } from '../redux/components/NoteAddForm';
 // redux
 import { useSelector } from 'react-redux';
 // selectors
@@ -49,6 +50,7 @@ export const Notedo = () => {
           },
         ]}
       />
+      <NoteAddForm />
     </>
   );
 };
