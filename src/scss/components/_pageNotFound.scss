@@ -1,0 +1,29 @@
+.error {
+  padding: 4rem 1.8rem 2rem;
+  @include Flex(wrap);
+
+  &__span {
+    width: 100%;
+    @include Media(tablet) {
+      width: 50%;
+      padding: 2rem;
+    }
+  }
+
+  &__heading {
+    letter-spacing: -1.5px;
+    margin-top: 0;
+    font-weight: GetWeight(light);
+    @include GetFontSize(default, $h1-fonts);
+  }
+  &__text {
+    margin: 0 0 3.2rem 0;
+    letter-spacing: 0.5px;
+    font-weight: GetWeight(light);
+    @include GetFontSize(default, $p-fonts);
+  }
+
+  &__image {
+    width: 100%;
+  }
+}
