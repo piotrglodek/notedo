@@ -62,3 +62,10 @@ input[type='search']::-webkit-search-decoration {
   background: none;
   box-shadow: none;
 }
+
+.app-container {
+  @include Media(extraLarge) {
+    width: 110rem;
+    margin: 0 auto;
+  }
+}
