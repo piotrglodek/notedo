@@ -27,10 +27,11 @@ App should automaticly open in browser localhost:[port]
 
 ## What I want to fix
 
-- add database (firebase)
-- add form validation by [Formik](https://formik.org)
-- add tests
+- add database [Firebase](https://firebase.google.com)
+- add form validation by [Formik](https://formik.org) or [React-hook-form](https://react-hook-form.com/)
+- add tests with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
 - Tabs component render prop
+- add ARIA for better accessibility
 
 ### Contributing
 
