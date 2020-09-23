@@ -26,10 +26,19 @@ App should automaticly open in browser localhost:[port]
 ## Preview
 
 Desktop views
-![Notedo desktop](notedo_view1.png) ![Notedo desktop](notedo_view2.png) ![Notedo desktop](notedo_view3.png) ![Notedo desktop](notedo_view4.png) ![Notedo desktop](notedo_view5.png)
+
+![Notedo desktop](notedo_view1.png) 
+![Notedo desktop](notedo_view2.png) 
+![Notedo desktop](notedo_view3.png)
+![Notedo desktop](notedo_view4.png)
+![Notedo desktop](notedo_view5.png)
 
 Mobile views
-![Notedo mobile](notedo_mobileview1.png) ![Notedo mobile](notedo_mobileview2.png) ![Notedo mobile](notedo_mobileview3.png) ![Notedo mobile](notedo_mobileview4.png)
+
+![Notedo mobile](notedo_mobileview1.png) 
+![Notedo mobile](notedo_mobileview2.png)
+![Notedo mobile](notedo_mobileview3.png)
+![Notedo mobile](notedo_mobileview4.png)
 
 ## What I want to fix
 
