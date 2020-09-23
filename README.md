@@ -3,8 +3,6 @@
 Notedo is tool that allows you to add, edit and delete notes in any time you want.
 [Notedo site](https://notedo.netlify.app/)
 
-![Notedo desktop](/src/assets/images/notedo_mockup.png)
-
 ## Installation
 
 open cmd on your device and type in order:
@@ -24,6 +22,14 @@ App should automaticly open in browser localhost:[port]
 - Redux, Redux Toolkit
 - React-router-dom
 - Node-sass (scss)
+
+## Preview
+
+Desktop views
+![Notedo desktop](notedo_view1.png) ![Notedo desktop](notedo_view2.png) ![Notedo desktop](notedo_view3.png) ![Notedo desktop](notedo_view4.png) ![Notedo desktop](notedo_view5.png)
+
+Mobile views
+![Notedo mobile](notedo_mobileview1.png) ![Notedo mobile](notedo_mobileview2.png) ![Notedo mobile](notedo_mobileview3.png) ![Notedo mobile](notedo_mobileview4.png)
 
 ## What I want to fix
 
