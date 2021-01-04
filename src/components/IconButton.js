@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { transparentize } from 'polished';
 
 export const IconButton = ({ icon, ariaLabel, ...rest }) => {
   return (
