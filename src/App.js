@@ -1,23 +1,16 @@
-import React from 'react';
-// react-router-dom
-import { Switch, Route } from 'react-router-dom';
+// router
+import { Switch, Route, Redirect } from 'react-router-dom';
 // page
-import { Home } from './pages/Home';
-import { PageNotFound } from './pages/PageNotFound';
-import { Notedo } from './pages/Notedo';
-// redux
-import { SingleNotePage } from './redux/components/SingleNotePage';
+import { Home } from './pages';
 
 function App() {
   return (
-    <div className='app-container'>
-      <Switch>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/notedo' component={Notedo} />
-        <Route exact path='/notedo/note/:noteId' component={SingleNotePage} />
-        <Route path='*' component={PageNotFound} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='*'>
+        <Redirect to='/' />
+      </Route>
+    </Switch>
   );
 }
 
