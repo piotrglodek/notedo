@@ -1,14 +1,73 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from './';
+import { Button, IconButton, Input, Form } from './';
+// icon
+import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
 
 export const Header = () => {
+  const [wantRegister, setWantRegister] = useState(false);
+
+  // unable scroll for modal
+  useEffect(() => {
+    if (wantRegister) {
+      document.body.style = `overflow:hidden;`;
+    } else {
+      document.body.style = null;
+    }
+  }, [wantRegister]);
+
   return (
-    <StyledHeader>
-      <StyledTitle>Notedo</StyledTitle>
-      <StyledWrapper>
-        <Button variant='secondary' size='small' label='Register' />
-      </StyledWrapper>
-    </StyledHeader>
+    <>
+      <StyledHeader>
+        <StyledTitle>Notedo</StyledTitle>
+        <Button
+          variant='secondary'
+          size='small'
+          label='Register'
+          title='Open register modal'
+          onClick={() => setWantRegister(true)}
+        />
+      </StyledHeader>
+      {wantRegister && (
+        <StyledModal>
+          <StyledModalWrapper>
+            <StyledClose>
+              <IconButton
+                onClick={() => setWantRegister(false)}
+                title='Close register modal'
+                ariaLabel='Close register modal'
+                icon={<CloseIcon />}
+              />
+            </StyledClose>
+            <StyledHeading>Create account</StyledHeading>
+            <Form>
+              <Input
+                name='email'
+                label='E-mail:'
+                id='email'
+                type='email'
+                required
+              />
+              <Input
+                name='password'
+                label='Password:'
+                id='password'
+                type='password'
+                required
+              />
+              <Input
+                name='repeatPassword'
+                label='Repeat password:'
+                id='repeatPassword'
+                type='password'
+                required
+              />
+              <Button type='submit' label='Create account' size='small' />
+            </Form>
+          </StyledModalWrapper>
+        </StyledModal>
+      )}
+    </>
   );
 };
 
@@ -30,9 +89,45 @@ const StyledTitle = styled.span`
     font-size: ${({ theme: { fontSize } }) => fontSize.l};
   }
 `;
-
-const StyledWrapper = styled.div`
-  & :first-child {
-    margin-right: 1rem;
+const StyledModal = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: grid;
+  place-items: center;
+  z-index: 999;
+`;
+const StyledModalWrapper = styled.div`
+  width: 100%;
+  max-width: 62.5rem;
+  margin: 0 auto;
+  background-color: ${({ theme: { color } }) => color.white};
+  padding: 1rem 1.6rem;
+  border-radius: 0.3rem;
+  position: relative;
+  z-index: 1;
+`;
+const StyledClose = styled.span`
+  position: absolute;
+  top: 1rem;
+  right: 1.6rem;
+`;
+const StyledHeading = styled.h1`
+  font-size: ${({ theme: { fontSize } }) => fontSize.l};
+  color: ${({ theme: { color } }) => color.black};
+  position: relative;
+  &::after {
+    content: '';
+    z-index: -1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 7rem;
+    height: 0.8rem;
+    background-color: ${({ theme: { color } }) => color.primaryTint};
+    opacity: 0.7;
   }
 `;
