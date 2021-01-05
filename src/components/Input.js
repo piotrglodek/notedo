@@ -28,7 +28,7 @@ Input.propTypes = {
 const StyledLabel = styled.label`
   display: block;
   margin-bottom: 1rem;
-  color: ${({ theme: { color } }) => color.black};
+  color: rgba(0, 0, 0, 0.6);
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
 `;
 const StyledLabelText = styled.p`
@@ -47,7 +47,7 @@ const StyledInput = styled.input`
   font-size: inherit;
   transition: border-color 0.4s ease;
   &:focus {
-    border-color: rgba(0, 0, 0, 0.7);
+    border-color: rgba(0, 0, 0, 0.8);
   }
 `;
 const StyledError = styled.span`
