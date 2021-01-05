@@ -12,14 +12,16 @@ export const IconButton = ({ icon, ariaLabel, ...rest }) => {
 const StyledIconButton = styled.button`
   width: 2.4rem;
   height: 2.4rem;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s ease;
 
   svg {
     fill: ${({ theme: { color } }) => color.black};
-    transition: fill 0.3s ease;
   }
 
-  &:hover svg {
-    fill: ${({ theme: { color } }) => color.primary};
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 `;
 
