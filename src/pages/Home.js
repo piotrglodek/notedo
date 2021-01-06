@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 // components
-import { Header, Input, Button, Form } from '../components';
+import { Input, Button, Form } from '../components';
 // images
 import notesImage from '../assets/images/notes_image.svg';
 // react-hook-form
@@ -9,26 +10,42 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // schema
 import { loginSchema } from '../schema';
+// firebase
+import { auth } from '../firebase';
+// redux
+import { useDispatch } from 'react-redux';
+import { setUserEmail } from '../store/reducers/authSlice';
+// router
+import { useHistory } from 'react-router-dom';
 
 export const Home = () => {
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(loginSchema),
     mode: 'onChange',
   });
-  const onSubmit = data => {
-    console.log(data);
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [loginError, setLoginError] = useState('');
+  const onSubmit = async data => {
+    auth
+      .signInWithEmailAndPassword(data.email, data.password)
+      .then(({ user }) => {
+        dispatch(setUserEmail(user.email));
+        history.push('/notedo');
+      })
+      .catch(error => setLoginError(error.message));
     reset();
   };
 
   return (
     <>
-      <Header />
       <StyledMain>
         <StyledRow>
           <StyledCol>
             <StyledHeading>Login to Notedo</StyledHeading>
             <StyledFormWrapper>
-              <Form onSubmit={handleSubmit(onSubmit)}>
+              <Form onSubmit={handleSubmit(onSubmit)} formError={loginError}>
                 <Input
                   error={errors.email?.message}
                   ref={register}
