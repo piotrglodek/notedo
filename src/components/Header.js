@@ -9,9 +9,20 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // schema
 import { registerSchema } from '../schema';
+// firebase
+import { auth } from '../firebase';
+// redux
+import { useDispatch } from 'react-redux';
+import { setUserEmail } from '../store/reducers/authSlice';
+// router
+import { useHistory } from 'react-router-dom';
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  // const userEmail = useSelector(selectUserEmail);
   const [wantRegister, setWantRegister] = useState(false);
+  const [registerError, setRegisterError] = useState('');
 
   // unable scroll for modal
   useEffect(() => {
@@ -26,8 +37,14 @@ export const Header = () => {
     resolver: yupResolver(registerSchema),
     mode: 'onChange',
   });
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = async data => {
+    await auth
+      .createUserWithEmailAndPassword(data.email, data.password)
+      .then(({ user }) => {
+        dispatch(setUserEmail(user.email));
+        history.push('/notedo');
+      })
+      .catch(error => setRegisterError(error.message));
     reset();
   };
 
@@ -55,7 +72,7 @@ export const Header = () => {
               />
             </StyledClose>
             <StyledHeading>Create account</StyledHeading>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={handleSubmit(onSubmit)} formError={registerError}>
               <Input
                 error={errors.email?.message}
                 ref={register}
