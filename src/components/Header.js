@@ -3,6 +3,12 @@ import styled from 'styled-components';
 import { Button, IconButton, Input, Form } from './';
 // icon
 import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
+// react-hook-form
+import { useForm } from 'react-hook-form';
+// yup
+import { yupResolver } from '@hookform/resolvers/yup';
+// schema
+import { registerSchema } from '../schema';
 
 export const Header = () => {
   const [wantRegister, setWantRegister] = useState(false);
@@ -15,6 +21,15 @@ export const Header = () => {
       document.body.style = null;
     }
   }, [wantRegister]);
+
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(registerSchema),
+    mode: 'onChange',
+  });
+  const onSubmit = data => {
+    console.log(data);
+    reset();
+  };
 
   return (
     <>
@@ -40,8 +55,10 @@ export const Header = () => {
               />
             </StyledClose>
             <StyledHeading>Create account</StyledHeading>
-            <Form>
+            <Form onSubmit={handleSubmit(onSubmit)}>
               <Input
+                error={errors.email?.message}
+                ref={register}
                 name='email'
                 label='E-mail:'
                 id='email'
@@ -49,6 +66,8 @@ export const Header = () => {
                 required
               />
               <Input
+                error={errors.password?.message}
+                ref={register}
                 name='password'
                 label='Password:'
                 id='password'
@@ -56,6 +75,8 @@ export const Header = () => {
                 required
               />
               <Input
+                error={errors.repeatPassword?.message}
+                ref={register}
                 name='repeatPassword'
                 label='Repeat password:'
                 id='repeatPassword'
@@ -98,6 +119,7 @@ const StyledModal = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   display: grid;
   place-items: center;
+  overflow: auto;
   z-index: 999;
 `;
 const StyledModalWrapper = styled.div`

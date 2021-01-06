@@ -3,8 +3,23 @@ import styled from 'styled-components';
 import { Header, Input, Button, Form } from '../components';
 // images
 import notesImage from '../assets/images/notes_image.svg';
+// react-hook-form
+import { useForm } from 'react-hook-form';
+// yup
+import { yupResolver } from '@hookform/resolvers/yup';
+// schema
+import { loginSchema } from '../schema';
 
 export const Home = () => {
+  const { register, handleSubmit, errors, reset } = useForm({
+    resolver: yupResolver(loginSchema),
+    mode: 'onChange',
+  });
+  const onSubmit = data => {
+    console.log(data);
+    reset();
+  };
+
   return (
     <>
       <Header />
@@ -13,8 +28,10 @@ export const Home = () => {
           <StyledCol>
             <StyledHeading>Login to Notedo</StyledHeading>
             <StyledFormWrapper>
-              <Form>
+              <Form onSubmit={handleSubmit(onSubmit)}>
                 <Input
+                  error={errors.email?.message}
+                  ref={register}
                   name='email'
                   label='E-mail:'
                   id='email'
@@ -22,6 +39,8 @@ export const Home = () => {
                   required
                 />
                 <Input
+                  error={errors.password?.message}
+                  ref={register}
                   name='password'
                   label='Password:'
                   id='password'
