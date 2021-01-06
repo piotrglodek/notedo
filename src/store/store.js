@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider as ReduxProvider } from 'react-redux';
 // redcuers
-import appReducer from './reducers/app';
+import authReducer from './reducers/authSlice';
 
 const store = configureStore({
-  reducer: { app: appReducer },
+  reducer: { auth: authReducer },
 });
 
 export const StoreProvider = ({ children }) => (
