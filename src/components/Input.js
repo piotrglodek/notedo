@@ -45,9 +45,10 @@ const StyledInput = styled.input`
   border: 0.1rem solid rgba(0, 0, 0, 0.5);
   color: inherit;
   font-size: inherit;
-  transition: border-color 0.4s ease;
+  transition: border-color 0.3s ease, color 0.3s ease;
   &:focus {
     border-color: rgba(0, 0, 0, 0.8);
+    color: rgba(0, 0, 0, 0.8);
   }
 `;
 const StyledError = styled.span`
