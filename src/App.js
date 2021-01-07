@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 // router
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 // page
 import { Home, Notedo, PrivateRoute } from './pages';
 // components
@@ -29,13 +29,8 @@ function App() {
     <>
       <Header />
       <Switch>
-        <PrivateRoute exact path='/notedo'>
-          <Notedo />
-        </PrivateRoute>
         <Route exact path='/' component={Home} />
-        <Route path='*'>
-          <Redirect to='/' />
-        </Route>
+        <PrivateRoute path='/notedo' component={Notedo} />
       </Switch>
     </>
   );

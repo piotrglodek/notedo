@@ -3,11 +3,14 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selectAuthState } from '../store/reducers/authSlice';
 
-export const PrivateRoute = ({ children, ...rest }) => {
+export const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
   const auth = useSelector(selectAuthState);
   return (
-    <Route {...rest} render={() => (auth ? children : <Redirect to='/' />)} />
+    <Route
+      {...rest}
+      render={routeProps =>
+        auth ? <RouteComponent {...routeProps} /> : <Redirect to='/' />
+      }
+    />
   );
 };
-
-export default PrivateRoute;
