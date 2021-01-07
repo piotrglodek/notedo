@@ -7,7 +7,7 @@ import { Home, Notedo, PrivateRoute } from './pages';
 import { Header } from './components';
 // redux
 import { useDispatch } from 'react-redux';
-import { authUser, logOutUser } from './store/reducers/authSlice';
+import { authUser, logOutUser, setUserEmail } from './store/reducers/authSlice';
 // firebase
 import { auth } from './firebase';
 
@@ -18,6 +18,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
         dispatch(authUser());
+        dispatch(setUserEmail(user.email));
       } else {
         dispatch(logOutUser());
       }

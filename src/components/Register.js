@@ -10,13 +10,12 @@ import { registerSchema } from '../schema';
 // firebase
 import { auth } from '../firebase';
 // redux
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserEmail, selectAuthState } from '../store/reducers/authSlice';
+import { useSelector } from 'react-redux';
+import { selectAuthState } from '../store/reducers/authSlice';
 // router
 import { Redirect } from 'react-router-dom';
 
 export const Register = () => {
-  const dispatch = useDispatch();
   const [registerError, setRegisterError] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm({
@@ -26,9 +25,6 @@ export const Register = () => {
   const onSubmit = async data => {
     await auth
       .createUserWithEmailAndPassword(data.email, data.password)
-      .then(({ user }) => {
-        dispatch(setUserEmail(user.email));
-      })
       .catch(error => setRegisterError(error.message));
     reset();
   };
