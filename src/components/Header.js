@@ -1,28 +1,12 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button, IconButton, Input, Form } from './';
+import { Button, IconButton, Register } from './';
 // icon
 import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
-// react-hook-form
-import { useForm } from 'react-hook-form';
-// yup
-import { yupResolver } from '@hookform/resolvers/yup';
-// schema
-import { registerSchema } from '../schema';
-// firebase
-import { auth } from '../firebase';
-// redux
-import { useDispatch } from 'react-redux';
-import { setUserEmail } from '../store/reducers/authSlice';
-// router
-import { useHistory } from 'react-router-dom';
 
 export const Header = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
   // const userEmail = useSelector(selectUserEmail);
   const [wantRegister, setWantRegister] = useState(false);
-  const [registerError, setRegisterError] = useState('');
 
   // unable scroll for modal
   useEffect(() => {
@@ -32,21 +16,6 @@ export const Header = () => {
       document.body.style = null;
     }
   }, [wantRegister]);
-
-  const { register, handleSubmit, errors, reset } = useForm({
-    resolver: yupResolver(registerSchema),
-    mode: 'onChange',
-  });
-  const onSubmit = async data => {
-    await auth
-      .createUserWithEmailAndPassword(data.email, data.password)
-      .then(({ user }) => {
-        dispatch(setUserEmail(user.email));
-        history.push('/notedo');
-      })
-      .catch(error => setRegisterError(error.message));
-    reset();
-  };
 
   return (
     <>
@@ -72,36 +41,7 @@ export const Header = () => {
               />
             </StyledClose>
             <StyledHeading>Create account</StyledHeading>
-            <Form onSubmit={handleSubmit(onSubmit)} formError={registerError}>
-              <Input
-                error={errors.email?.message}
-                ref={register}
-                name='email'
-                label='E-mail:'
-                id='email'
-                type='email'
-                required
-              />
-              <Input
-                error={errors.password?.message}
-                ref={register}
-                name='password'
-                label='Password:'
-                id='password'
-                type='password'
-                required
-              />
-              <Input
-                error={errors.repeatPassword?.message}
-                ref={register}
-                name='repeatPassword'
-                label='Repeat password:'
-                id='repeatPassword'
-                type='password'
-                required
-              />
-              <Button type='submit' label='Create account' size='small' />
-            </Form>
+            <Register />
           </StyledModalWrapper>
         </StyledModal>
       )}
