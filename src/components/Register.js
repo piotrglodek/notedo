@@ -10,8 +10,10 @@ import { registerSchema } from '../schema';
 // firebase
 import { auth } from '../firebase';
 // redux
-import { useDispatch } from 'react-redux';
-import { setUserEmail } from '../store/reducers/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserEmail, selectAuthState } from '../store/reducers/authSlice';
+// router
+import { Redirect } from 'react-router-dom';
 
 export const Register = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,13 @@ export const Register = () => {
       .catch(error => setRegisterError(error.message));
     reset();
   };
+
+  const authState = useSelector(selectAuthState);
+
+  if (authState) {
+    return <Redirect to='/notedo' />;
+  }
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)} formError={registerError}>
       <Input
