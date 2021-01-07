@@ -7,6 +7,9 @@ import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
 import { useLocation } from 'react-router-dom';
 // firebase
 import { auth } from '../firebase';
+// redux
+import { useSelector } from 'react-redux';
+import { selectUserEmail } from '../store/reducers/authSlice';
 
 export const Header = () => {
   // const userEmail = useSelector(selectUserEmail);
@@ -22,6 +25,7 @@ export const Header = () => {
   }, [wantRegister]);
 
   const location = useLocation();
+  const userEmail = useSelector(selectUserEmail);
 
   const RegisterWithModal = (
     <>
@@ -57,13 +61,19 @@ export const Header = () => {
         <StyledTitle>Notedo</StyledTitle>
         {location.pathname === '/' && RegisterWithModal}
         {location.pathname === '/notedo' && (
-          <Button
-            variant='secondary'
-            size='small'
-            label='Log out'
-            title='Log out from account'
-            onClick={() => auth.signOut()}
-          />
+          <StyledWrapper>
+            <StyledText>
+              <StyledBoldText>Hello, </StyledBoldText>
+              {userEmail && userEmail}
+            </StyledText>
+            <Button
+              variant='secondary'
+              size='small'
+              label='Log out'
+              title='Log out from account'
+              onClick={() => auth.signOut()}
+            />
+          </StyledWrapper>
         )}
       </StyledHeader>
     </>
@@ -75,6 +85,7 @@ const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  flex-wrap: wrap;
 `;
 
 const StyledTitle = styled.span`
@@ -130,4 +141,27 @@ const StyledHeading = styled.h1`
     background-color: ${({ theme: { color } }) => color.primaryTint};
     opacity: 0.7;
   }
+`;
+const StyledWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  justify-content: space-between;
+  @media screen and (min-width: 768px) {
+    width: auto;
+    justify-content: unset;
+  }
+`;
+const StyledText = styled.p`
+  margin: 0;
+  color: ${({ theme: { color } }) => color.black};
+  font-size: ${({ theme: { fontSize } }) => fontSize.xs};
+  @media screen and (min-width: 768px) {
+    font-size: ${({ theme: { fontSize } }) => fontSize.s};
+    margin-right: 1.5rem;
+  }
+`;
+const StyledBoldText = styled.span`
+  font-size: inherit;
+  font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};
 `;
