@@ -3,6 +3,10 @@ import styled from 'styled-components';
 import { Button, IconButton, Register } from './';
 // icon
 import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
+// router
+import { useLocation } from 'react-router-dom';
+// firebase
+import { auth } from '../firebase';
 
 export const Header = () => {
   // const userEmail = useSelector(selectUserEmail);
@@ -17,18 +21,17 @@ export const Header = () => {
     }
   }, [wantRegister]);
 
-  return (
+  const location = useLocation();
+
+  const RegisterWithModal = (
     <>
-      <StyledHeader>
-        <StyledTitle>Notedo</StyledTitle>
-        <Button
-          variant='secondary'
-          size='small'
-          label='Register'
-          title='Open register modal'
-          onClick={() => setWantRegister(true)}
-        />
-      </StyledHeader>
+      <Button
+        variant='secondary'
+        size='small'
+        label='Register'
+        title='Open register modal'
+        onClick={() => setWantRegister(true)}
+      />
       {wantRegister && (
         <StyledModal>
           <StyledModalWrapper>
@@ -45,6 +48,24 @@ export const Header = () => {
           </StyledModalWrapper>
         </StyledModal>
       )}
+    </>
+  );
+
+  return (
+    <>
+      <StyledHeader>
+        <StyledTitle>Notedo</StyledTitle>
+        {location.pathname === '/' && RegisterWithModal}
+        {location.pathname === '/notedo' && (
+          <Button
+            variant='secondary'
+            size='small'
+            label='Log out'
+            title='Log out from account'
+            onClick={() => auth.signOut()}
+          />
+        )}
+      </StyledHeader>
     </>
   );
 };
