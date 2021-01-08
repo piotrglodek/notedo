@@ -22,3 +22,8 @@ export const registerSchema = yup.object().shape({
     .required('confirm password is required!')
     .oneOf([yup.ref('password'), null], 'passwords must match!'),
 });
+
+export const createNoteSchema = yup.object().shape({
+  noteTitle: yup.string().required('note title is required!'),
+  noteDescription: yup.string().required('note description is required!'),
+});
