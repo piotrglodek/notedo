@@ -27,7 +27,7 @@ export const Header = () => {
   const location = useLocation();
   const userEmail = useSelector(selectUserEmail);
 
-  const RegisterWithModal = (
+  const registerWithModal = (
     <>
       <Button
         variant='secondary'
@@ -55,26 +55,28 @@ export const Header = () => {
     </>
   );
 
+  const authUser = (
+    <StyledWrapper>
+      <StyledText>
+        <StyledBoldText>Hello, </StyledBoldText>
+        {userEmail && userEmail}
+      </StyledText>
+      <Button
+        variant='secondary'
+        size='small'
+        label='Log out'
+        title='Log out from account'
+        onClick={() => auth.signOut()}
+      />
+    </StyledWrapper>
+  );
+
   return (
     <>
       <StyledHeader>
         <StyledTitle>Notedo</StyledTitle>
-        {location.pathname === '/' && RegisterWithModal}
-        {location.pathname === '/notedo' && (
-          <StyledWrapper>
-            <StyledText>
-              <StyledBoldText>Hello, </StyledBoldText>
-              {userEmail && userEmail}
-            </StyledText>
-            <Button
-              variant='secondary'
-              size='small'
-              label='Log out'
-              title='Log out from account'
-              onClick={() => auth.signOut()}
-            />
-          </StyledWrapper>
-        )}
+        {location.pathname === '/' && registerWithModal}
+        {location.pathname === '/notedo' && authUser}
       </StyledHeader>
     </>
   );
