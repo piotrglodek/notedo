@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 export const Input = forwardRef((props, ref) => {
-  const { label, id, error, ...rest } = props;
+  const { label, id, error, withoutLabel, ...rest } = props;
   return (
     <StyledLabel htmlFor={id}>
-      <StyledLabelText aria-label={label}>{label}</StyledLabelText>
+      {withoutLabel ? null : (
+        <StyledLabelText aria-label={label}>{label}</StyledLabelText>
+      )}
       <StyledInput ref={ref} id={id} {...rest} />
       {error && <StyledError>{error}</StyledError>}
     </StyledLabel>
@@ -15,14 +17,16 @@ export const Input = forwardRef((props, ref) => {
 
 Input.defaultProps = {
   type: 'text',
+  withoutLabel: false,
 };
 
 Input.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  label: PropTypes.string,
   error: PropTypes.string,
+  withoutLabel: PropTypes.bool,
 };
 
 const StyledLabel = styled.label`
