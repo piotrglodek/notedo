@@ -12,7 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // schema
 import { createNoteSchema } from '../schema';
 // firebase
-import { auth, db, FieldValue } from '../firebase';
+import { auth, db, Timestamp } from '../firebase';
 // framer
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 
@@ -34,16 +34,20 @@ export const CreateNote = () => {
   const [saveNoteError, setSaveNoteError] = useState(null);
   const onSubmit = async data => {
     const userUID = auth.currentUser.uid;
+
+    const noteId = db.collection('notes').doc().id;
     const noteObject = {
+      id: noteId,
       userId: userUID,
       title: data.noteTitle,
       description: data.noteDescription,
-      timestamp: FieldValue.serverTimestamp(),
+      date: Timestamp.fromDate(new Date()),
     };
 
     await db
       .collection('notes')
-      .add(noteObject)
+      .doc(noteId)
+      .set(noteObject)
       .then(() => {
         const toastObject = {
           id: toastId,
@@ -84,6 +88,7 @@ export const CreateNote = () => {
                       withoutLabel
                       type='text'
                       placeholder='Title'
+                      autoFocus
                     />
                     <Textarea
                       ref={register}
@@ -125,112 +130,6 @@ export const CreateNote = () => {
     </>
   );
 };
-// export const CreateNote = () => {
-//   const [isVisibleInformation, setIsVisibleInformation] = useState(true);
-//   const [isVisibleCreateNoteForm, setIsVisibleCreateNoteForm] = useState(false);
-//   const [saveNoteError, setSaveNoteError] = useState(null);
-
-//   const wrapperRef = useRef(null);
-//   useClickAway(wrapperRef, closeCreateNoteForm);
-
-//   const openCreateNoteForm = () => {
-//     setIsVisibleInformation(false);
-//     setIsVisibleCreateNoteForm(true);
-//   };
-//   const closeCreateNoteForm = () => {
-//     setIsVisibleInformation(true);
-//     setIsVisibleCreateNoteForm(false);
-//   };
-
-//   const { register, handleSubmit, errors, reset } = useForm({
-//     resolver: yupResolver(createNoteSchema),
-//     mode: 'onChange',
-//   });
-
-//   // toast
-//   const [toastList, setToastList] = useState([]);
-//   const [toastId, setToastId] = useState(0);
-
-//   const onSubmit = async data => {
-//     const userUID = auth.currentUser.uid;
-//     const noteObject = {
-//       userId: userUID,
-//       title: data.noteTitle,
-//       description: data.noteDescription,
-//       timestamp: FieldValue.serverTimestamp(),
-//     };
-
-//     await db
-//       .collection('notes')
-//       .add(noteObject)
-//       .then(() => {
-//         const toastObject = {
-//           id: toastId,
-//           message: 'Your note has been saved sucessfully.',
-//           type: 'success',
-//         };
-
-//         setToastList(arr => [...arr, toastObject]);
-//         setToastId(prevState => prevState + 1);
-//       })
-//       .catch(error => setSaveNoteError(error));
-
-//     closeCreateNoteForm();
-//     reset();
-//   };
-
-//   const noteInformation = (
-//     <StyledInputSimulator onClick={openCreateNoteForm}>
-//       Create note...
-//     </StyledInputSimulator>
-//   );
-
-//   const createNoteForm = (
-//     <Form onSubmit={handleSubmit(onSubmit)} formError={saveNoteError}>
-//       <StyledHeader>
-//         <Input
-//           ref={register}
-//           error={errors.noteTitle?.message}
-//           name='noteTitle'
-//           withoutLabel
-//           type='text'
-//           placeholder='Title'
-//         />
-//         <Textarea
-//           ref={register}
-//           error={errors.noteDescription?.message}
-//           name='noteDescription'
-//           withoutLabel
-//           placeholder='Description'
-//           resize={false}
-//           rows={8}
-//         />
-//       </StyledHeader>
-//       <StyledFooter>
-//         <Button
-//           size='small'
-//           variant='secondary'
-//           onClick={() => closeCreateNoteForm()}
-//           label='Close'
-//           type='button'
-//         />
-//         <Button type='submit' size='small' label='Save' />
-//       </StyledFooter>
-//     </Form>
-//   );
-
-//   return (
-//     <>
-//       <StyledWrapper>
-//         <StyledWrapperBorder ref={wrapperRef}>
-//           {isVisibleInformation && noteInformation}
-//           {isVisibleCreateNoteForm && createNoteForm}
-//         </StyledWrapperBorder>
-//       </StyledWrapper>
-//       <Toast toastList={toastList} setToastList={setToastList} autoDelete />
-//     </>
-//   );
-// };
 
 const StyledWrapper = styled(motion.div)`
   margin: 4rem auto 0 auto;
