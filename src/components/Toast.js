@@ -7,6 +7,8 @@ import { ReactComponent as ErrorIcon } from '../assets/icons/error.svg';
 import { ReactComponent as InfoIcon } from '../assets/icons/info.svg';
 import { ReactComponent as WarningIcon } from '../assets/icons/warning.svg';
 import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
+// framer
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Toast = props => {
   const {
@@ -57,26 +59,43 @@ export const Toast = props => {
     };
   }, [toastList, autoDelete, autoDeleteTime, deleteToast]);
 
+  const toastAnimation =
+    position === 'top-right' || position === 'bottom-right' ? '100%' : '-100%';
+
   return (
-    <>
-      {toastList.length ? (
-        <StyledWrapper role='alert' className={position}>
-          {toastList.map(({ id, message, type }) => (
-            <StyledToast key={id} className={type}>
-              <StyledToastIcon>{handleToastIcon(type)}</StyledToastIcon>
-              <StyledToastClose onClick={() => deleteToast(id)}>
-                <CloseIcon />
-              </StyledToastClose>
-              <StyledToastMessage>{message}</StyledToastMessage>
-            </StyledToast>
-          ))}
+    <AnimatePresence>
+      {toastList.length && (
+        <StyledWrapper
+          initial={{ opacity: 0, x: toastAnimation }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: toastAnimation }}
+          role='alert'
+          className={position}
+        >
+          <AnimatePresence>
+            {toastList.map(({ id, message, type }) => (
+              <StyledToast
+                initial={{ x: toastAnimation }}
+                animate={{ x: 0 }}
+                exit={{ x: toastAnimation }}
+                key={id}
+                className={type}
+              >
+                <StyledToastIcon>{handleToastIcon(type)}</StyledToastIcon>
+                <StyledToastClose onClick={() => deleteToast(id)}>
+                  <CloseIcon />
+                </StyledToastClose>
+                <StyledToastMessage>{message}</StyledToastMessage>
+              </StyledToast>
+            ))}
+          </AnimatePresence>
         </StyledWrapper>
-      ) : null}
-    </>
+      )}
+    </AnimatePresence>
   );
 };
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled(motion.div)`
   position: fixed;
   z-index: 1000;
 
@@ -97,7 +116,7 @@ const StyledWrapper = styled.div`
     right: 1.2rem;
   }
 `;
-const StyledToast = styled.div`
+const StyledToast = styled(motion.div)`
   overflow: hidden;
   margin-bottom: 1.2rem;
   padding: 0.6rem;

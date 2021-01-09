@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, IconButton, Register } from './';
 // icon
@@ -10,19 +10,22 @@ import { auth } from '../firebase';
 // redux
 import { useSelector } from 'react-redux';
 import { selectUserEmail } from '../store/reducers/authSlice';
+// hook
+import { useToggle } from '../hooks/useToggle';
+// framer
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Header = () => {
-  // const userEmail = useSelector(selectUserEmail);
-  const [wantRegister, setWantRegister] = useState(false);
+  const [isOpen, handleOpen, handleClose] = useToggle();
 
   // unable scroll for modal
   useEffect(() => {
-    if (wantRegister) {
+    if (isOpen) {
       document.body.style = `overflow:hidden;`;
     } else {
       document.body.style = null;
     }
-  }, [wantRegister]);
+  }, [isOpen]);
 
   const location = useLocation();
   const userEmail = useSelector(selectUserEmail);
@@ -34,24 +37,30 @@ export const Header = () => {
         size='small'
         label='Register'
         title='Open register modal'
-        onClick={() => setWantRegister(true)}
+        onClick={() => handleOpen()}
       />
-      {wantRegister && (
-        <StyledModal>
-          <StyledModalWrapper>
-            <StyledClose>
-              <IconButton
-                onClick={() => setWantRegister(false)}
-                title='Close register modal'
-                ariaLabel='Close register modal'
-                icon={<CloseIcon />}
-              />
-            </StyledClose>
-            <StyledHeading>Create account</StyledHeading>
-            <Register />
-          </StyledModalWrapper>
-        </StyledModal>
-      )}
+      <AnimatePresence>
+        {isOpen && (
+          <StyledModal
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <StyledModalWrapper>
+              <StyledClose>
+                <IconButton
+                  onClick={() => handleClose()}
+                  title='Close register modal'
+                  ariaLabel='Close register modal'
+                  icon={<CloseIcon />}
+                />
+              </StyledClose>
+              <StyledHeading>Create account</StyledHeading>
+              <Register />
+            </StyledModalWrapper>
+          </StyledModal>
+        )}
+      </AnimatePresence>
     </>
   );
 
@@ -101,7 +110,7 @@ const StyledTitle = styled.span`
     font-size: ${({ theme: { fontSize } }) => fontSize.l};
   }
 `;
-const StyledModal = styled.div`
+const StyledModal = styled(motion.div)`
   position: absolute;
   top: 0;
   left: 0;

@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+// framer
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Input = forwardRef((props, ref) => {
   const { label, id, error, withoutLabel, ...rest } = props;
@@ -10,7 +12,17 @@ export const Input = forwardRef((props, ref) => {
         <StyledLabelText aria-label={label}>{label}</StyledLabelText>
       )}
       <StyledInput ref={ref} id={id} {...rest} />
-      {error && <StyledError>{error}</StyledError>}
+      <AnimatePresence>
+        {error && (
+          <StyledError
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {error}
+          </StyledError>
+        )}
+      </AnimatePresence>
     </StyledLabel>
   );
 });
@@ -55,7 +67,7 @@ const StyledInput = styled.input`
     color: rgba(0, 0, 0, 0.8);
   }
 `;
-const StyledError = styled.span`
+const StyledError = styled(motion.span)`
   display: inline-block;
   color: ${({ theme: { color } }) => color.error};
   margin-top: 0.4rem;

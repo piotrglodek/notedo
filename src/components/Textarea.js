@@ -1,6 +1,8 @@
 import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+// framer
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const Textarea = forwardRef((props, ref) => {
   const { label, id, error, withoutLabel, resize, ...rest } = props;
@@ -10,7 +12,17 @@ export const Textarea = forwardRef((props, ref) => {
         <StyledLabelText aria-label={label}>{label}</StyledLabelText>
       )}
       <StyledTextarea ref={ref} id={id} {...rest} resize={resize} />
-      {error && <StyledError>{error}</StyledError>}
+      <AnimatePresence>
+        {error && (
+          <StyledError
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {error}
+          </StyledError>
+        )}
+      </AnimatePresence>
     </StyledLabel>
   );
 });
@@ -62,7 +74,7 @@ const StyledTextarea = styled.textarea`
       resize: none;
     `}
 `;
-const StyledError = styled.span`
+const StyledError = styled(motion.span)`
   display: inline-block;
   color: ${({ theme: { color } }) => color.error};
   margin-top: 0.4rem;
