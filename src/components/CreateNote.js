@@ -3,17 +3,21 @@ import styled from 'styled-components';
 // hook
 import { useClickAway } from '../hooks/useClickAway';
 // components
-import { Button, Input, Textarea, Form } from './';
+import { Button, Input, Textarea, Form, Toast } from './';
 // react-hook-form
 import { useForm } from 'react-hook-form';
 // yup
 import { yupResolver } from '@hookform/resolvers/yup';
 // schema
 import { createNoteSchema } from '../schema';
+// firebase
+import { auth, db, FieldValue } from '../firebase';
 
 export const CreateNote = () => {
   const [isVisibleInformation, setIsVisibleInformation] = useState(true);
   const [isVisibleCreateNoteForm, setIsVisibleCreateNoteForm] = useState(false);
+  const [saveNoteError, setSaveNoteError] = useState(null);
+
   const wrapperRef = useRef(null);
 
   const openCreateNoteForm = () => {
@@ -32,8 +36,34 @@ export const CreateNote = () => {
     mode: 'onChange',
   });
 
+  // toast
+  const [toastList, setToastList] = useState([]);
+  const [toastId, setToastId] = useState(0);
+
   const onSubmit = async data => {
-    console.log(data);
+    const userUID = auth.currentUser.uid;
+    const noteObject = {
+      userId: userUID,
+      title: data.noteTitle,
+      description: data.noteDescription,
+      timestamp: FieldValue.serverTimestamp(),
+    };
+
+    await db
+      .collection('notes')
+      .add(noteObject)
+      .then(() => {
+        const toastObject = {
+          id: toastId,
+          message: 'Your note has been saved sucessfully.',
+          type: 'success',
+        };
+
+        setToastList(arr => [...arr, toastObject]);
+        setToastId(prevState => prevState + 1);
+      })
+      .catch(error => setSaveNoteError(error));
+
     closeCreateNoteForm();
     reset();
   };
@@ -45,7 +75,7 @@ export const CreateNote = () => {
   );
 
   const createNoteForm = (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} formError={saveNoteError}>
       <StyledHeader>
         <Input
           ref={register}
@@ -84,6 +114,7 @@ export const CreateNote = () => {
         {isVisibleInformation && noteInformation}
         {isVisibleCreateNoteForm && createNoteForm}
       </StyledWrapperBorder>
+      <Toast toastList={toastList} setToastList={setToastList} autoDelete />
     </StyledWrapper>
   );
 };
