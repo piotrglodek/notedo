@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styled from 'styled-components';
 import { Button, IconButton, Register } from './';
 // icon
-import { ReactComponent as CloseIcon } from '../assets/icons/close_icon.svg';
+import { ReactComponent as CloseIcon } from '../assets/icons/close.svg';
 // router
 import { useLocation } from 'react-router-dom';
 // firebase
