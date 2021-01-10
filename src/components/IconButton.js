@@ -16,10 +16,6 @@ const StyledIconButton = styled.button`
   background-color: transparent;
   transition: background-color 0.3s ease;
 
-  svg {
-    fill: ${({ theme: { color } }) => color.black};
-  }
-
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
