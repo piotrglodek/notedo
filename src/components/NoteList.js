@@ -3,14 +3,16 @@ import styled from 'styled-components';
 // firebase
 import { db, auth } from '../firebase';
 // components
-import { Spinner, Note, Toast } from './';
+import { Spinner, Note } from './';
 // image
 import notesImage from '../assets/images/add-files_image.svg';
 import errorImage from '../assets/images/error-404_image.svg';
 // framer
 import { motion, AnimatePresence } from 'framer-motion';
+// nanoid
+import { nanoid } from '@reduxjs/toolkit';
 
-export const NoteList = () => {
+export const NoteList = ({ setToastList }) => {
   const userUID = auth.currentUser.uid;
 
   const [notes, setNotes] = useState([]);
@@ -40,9 +42,6 @@ export const NoteList = () => {
     return () => fetchNotes();
   }, [userUID]);
 
-  // toast
-  const [toastList, setToastList] = useState([]);
-
   const handleDelete = async noteId => {
     await db
       .collection('notes')
@@ -50,7 +49,7 @@ export const NoteList = () => {
       .delete()
       .then(() => {
         const toastObject = {
-          id: noteId,
+          id: nanoid(),
           message: 'Your note has been deleted sucessfully.',
           type: 'success',
         };
@@ -59,7 +58,7 @@ export const NoteList = () => {
       })
       .catch(error => {
         const toastObject = {
-          id: noteId,
+          id: nanoid(),
           message: `Couldn't delete the note. Try again.`,
           type: 'danger',
         };
@@ -104,7 +103,6 @@ export const NoteList = () => {
           </AnimatePresence>
         </StyledGird>
       )}
-      <Toast toastList={toastList} setToastList={setToastList} autoDelete />
     </StyledWrapper>
   );
 };
@@ -122,7 +120,8 @@ const StyledSpinnerWrapper = styled.div`
 `;
 
 const StyledImage = styled.img`
-  height: 32rem;
+  width: 100%;
+  max-width: 28.8rem;
   display: block;
 `;
 

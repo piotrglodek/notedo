@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useClickAway } from '../hooks/useClickAway';
 import { useToggle } from '../hooks/useToggle';
 // components
-import { Button, Input, Textarea, Form, Toast } from './';
+import { Button, Input, Textarea, Form } from './';
 // react-hook-form
 import { useForm } from 'react-hook-form';
 // yup
@@ -15,16 +15,14 @@ import { createNoteSchema } from '../schema';
 import { auth, db, Timestamp } from '../firebase';
 // framer
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+// nanoid
+import { nanoid } from '@reduxjs/toolkit';
 
-export const CreateNote = () => {
+export const CreateNote = ({ setToastList }) => {
   const [isOpen, handleOpen, handleClose] = useToggle();
 
   const wrapperRef = useRef(null);
   useClickAway(wrapperRef, handleClose);
-
-  // toast
-  const [toastList, setToastList] = useState([]);
-  const [toastId, setToastId] = useState(0);
 
   const { register, handleSubmit, errors, reset } = useForm({
     resolver: yupResolver(createNoteSchema),
@@ -50,23 +48,21 @@ export const CreateNote = () => {
       .set(noteObject)
       .then(() => {
         const toastObject = {
-          id: toastId,
+          id: nanoid(),
           message: 'Your note has been saved sucessfully.',
           type: 'success',
         };
 
         setToastList(arr => [...arr, toastObject]);
-        setToastId(prevState => prevState + 1);
       })
       .catch(error => {
         const toastObject = {
-          id: toastId,
+          id: nanoid(),
           message: `Couldn't save the note. Try again.`,
           type: 'danger',
         };
 
         setToastList(arr => [...arr, toastObject]);
-        setToastId(prevState => prevState + 1);
         setSaveNoteError(error);
         console.log(`Couldn't save the note. Error: ${error}`);
       });
@@ -137,7 +133,6 @@ export const CreateNote = () => {
           </AnimatePresence>
         </StyledWrapper>
       </AnimateSharedLayout>
-      <Toast toastList={toastList} setToastList={setToastList} autoDelete />
     </>
   );
 };
