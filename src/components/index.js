@@ -10,3 +10,4 @@ export { Textarea } from './Textarea';
 export { Toast } from './Toast';
 export { NoteList } from './NoteList';
 export { Spinner } from './Spinner';
+export { Note } from './Note';
