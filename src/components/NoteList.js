@@ -3,10 +3,12 @@ import styled from 'styled-components';
 // firebase
 import { db, auth } from '../firebase';
 // components
-import { Spinner } from './';
+import { Spinner, Note, Toast } from './';
 // image
 import notesImage from '../assets/images/add-files_image.svg';
 import errorImage from '../assets/images/error-404_image.svg';
+// framer
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const NoteList = () => {
   const userUID = auth.currentUser.uid;
@@ -25,7 +27,6 @@ export const NoteList = () => {
           let temp = [];
           querySnapshot.forEach(doc => {
             temp.push(doc.data());
-            console.log('data', doc.data());
           });
           setNotes(temp);
           setIsFetching(false);
@@ -39,8 +40,37 @@ export const NoteList = () => {
     return () => fetchNotes();
   }, [userUID]);
 
+  // toast
+  const [toastList, setToastList] = useState([]);
+
+  const handleDelete = async noteId => {
+    await db
+      .collection('notes')
+      .doc(noteId)
+      .delete()
+      .then(() => {
+        const toastObject = {
+          id: noteId,
+          message: 'Your note has been deleted sucessfully.',
+          type: 'success',
+        };
+
+        setToastList(arr => [...arr, toastObject]);
+      })
+      .catch(error => {
+        const toastObject = {
+          id: noteId,
+          message: `Couldn't delete the note. Try again.`,
+          type: 'danger',
+        };
+
+        setToastList(arr => [...arr, toastObject]);
+        console.log(`Couldn't delete the note. Error: ${error}`);
+      });
+  };
+
   return (
-    <StyledWrapper>
+    <StyledWrapper layout>
       {isFetching ? (
         <StyledSpinnerWrapper>
           <Spinner />
@@ -59,17 +89,31 @@ export const NoteList = () => {
           <StyledHeading>You don't have notes. Try create one.</StyledHeading>
         </>
       ) : (
-        'we have note!'
+        <StyledGird>
+          <AnimatePresence>
+            {notes.map(note => (
+              <motion.div
+                key={note.id}
+                inital={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0 }}
+              >
+                <Note note={note} handleDelete={handleDelete} />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </StyledGird>
       )}
+      <Toast toastList={toastList} setToastList={setToastList} autoDelete />
     </StyledWrapper>
   );
 };
 
-const StyledWrapper = styled.main`
+const StyledWrapper = styled(motion.main)`
   margin: 3.5rem auto;
   padding: 0 1.6rem;
   width: 100%;
-  max-width: 80rem;
+  max-width: 100rem;
 `;
 
 const StyledSpinnerWrapper = styled.div`
@@ -97,4 +141,27 @@ const StyledHeading = styled.h2`
 const StyledError = styled.p`
   color: ${({ theme: { color } }) => color.error};
   font-size: ${({ theme: { fontSize } }) => fontSize.xs};
+`;
+
+const StyledGird = styled.div`
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+
+  @media screen and (min-width: 425px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media screen and (min-width: 1600px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
 `;
