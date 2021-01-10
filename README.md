@@ -21,32 +21,22 @@ App should automaticly open in browser localhost:[port]
 - React
 - Redux, Redux Toolkit
 - React-router-dom
-- Node-sass (scss)
+- Framer-motion
+- Moment
+- Styled-components
+- Firebase
+- React-hook-form (yup)
+- polished
 
 ## Preview
 
-Desktop views
-
-![Notedo desktop](notedo_view1.png) 
-![Notedo desktop](notedo_view2.png) 
-![Notedo desktop](notedo_view3.png)
-![Notedo desktop](notedo_view4.png)
-![Notedo desktop](notedo_view5.png)
-
-Mobile views
-
-![Notedo mobile](notedo_mobileview1.png) 
-![Notedo mobile](notedo_mobileview2.png)
-![Notedo mobile](notedo_mobileview3.png)
-![Notedo mobile](notedo_mobileview4.png)
 
 ## What I want to fix
 
-- add database [Firebase](https://firebase.google.com)
-- add form validation by [Formik](https://formik.org) or [React-hook-form](https://react-hook-form.com/)
+- add database [Firebase](https://firebase.google.com) ✔️
+- add form validation by [Formik](https://formik.org) or [React-hook-form](https://react-hook-form.com/) ✔️
 - add tests with [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)
-- Tabs component render prop
-- add ARIA for better accessibility
+- add ARIA for better accessibility ✔️
 
 ### Contributing
 
