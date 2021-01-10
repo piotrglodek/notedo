@@ -1,23 +1,39 @@
-import React from 'react';
-// react-router-dom
+import { useEffect } from 'react';
+// router
 import { Switch, Route } from 'react-router-dom';
 // page
-import { Home } from './pages/Home';
-import { PageNotFound } from './pages/PageNotFound';
-import { Notedo } from './pages/Notedo';
+import { Home, Notedo, PrivateRoute } from './pages';
+// components
+import { Header } from './components';
 // redux
-import { SingleNotePage } from './redux/components/SingleNotePage';
+import { useDispatch } from 'react-redux';
+import { authUser, logOutUser, setUserEmail } from './store/reducers/authSlice';
+// firebase
+import { auth } from './firebase';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        dispatch(authUser());
+        dispatch(setUserEmail(user.email));
+      } else {
+        dispatch(logOutUser());
+      }
+    });
+    return () => unsubscribe();
+  }, [dispatch]);
+
   return (
-    <div className='app-container'>
+    <>
+      <Header />
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route exact path='/notedo' component={Notedo} />
-        <Route exact path='/notedo/note/:noteId' component={SingleNotePage} />
-        <Route path='*' component={PageNotFound} />
+        <PrivateRoute path='/notedo' component={Notedo} />
       </Switch>
-    </div>
+    </>
   );
 }
 

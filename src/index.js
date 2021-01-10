@@ -1,28 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-// redux
-import store from './redux/store';
-import { Provider } from 'react-redux';
-// react-router-dom
+// router
 import { BrowserRouter as Router } from 'react-router-dom';
-// scss
-import './scss/index.scss';
-// localStorage
-import { saveState } from './localStorage';
-
-store.subscribe(() => {
-  saveState(store.getState().notes);
-});
+// theme provider
+import { ThemeProvider } from './theme';
+// redux store provider
+import { StoreProvider } from './store/store';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <ThemeProvider>
+    <StoreProvider>
+      <Router>
+        <App />
+      </Router>
+    </StoreProvider>
+  </ThemeProvider>,
   document.getElementById('root')
 );
-
-serviceWorker.unregister();
