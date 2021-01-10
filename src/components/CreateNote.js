@@ -58,7 +58,17 @@ export const CreateNote = () => {
         setToastList(arr => [...arr, toastObject]);
         setToastId(prevState => prevState + 1);
       })
-      .catch(error => setSaveNoteError(error));
+      .catch(error => {
+        setSaveNoteError(error);
+        const toastObject = {
+          id: toastId,
+          message: `Couldn't save the note. Try again.`,
+          type: 'danger',
+        };
+
+        setToastList(arr => [...arr, toastObject]);
+        setToastId(prevState => prevState + 1);
+      });
 
     handleClose();
     reset();
