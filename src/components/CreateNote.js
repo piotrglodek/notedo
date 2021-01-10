@@ -34,13 +34,13 @@ export const CreateNote = () => {
   const [saveNoteError, setSaveNoteError] = useState(null);
   const onSubmit = async data => {
     const userUID = auth.currentUser.uid;
-
     const noteId = db.collection('notes').doc().id;
+
     const noteObject = {
       id: noteId,
       userId: userUID,
       title: data.noteTitle,
-      description: data.noteDescription,
+      description: data.noteDescription.replace(/\n/g, ' \n '),
       date: Timestamp.fromDate(new Date()),
     };
 
@@ -59,7 +59,6 @@ export const CreateNote = () => {
         setToastId(prevState => prevState + 1);
       })
       .catch(error => {
-        setSaveNoteError(error);
         const toastObject = {
           id: toastId,
           message: `Couldn't save the note. Try again.`,
@@ -68,6 +67,8 @@ export const CreateNote = () => {
 
         setToastList(arr => [...arr, toastObject]);
         setToastId(prevState => prevState + 1);
+        setSaveNoteError(error);
+        console.log(`Couldn't save the note. Error: ${error}`);
       });
 
     handleClose();
