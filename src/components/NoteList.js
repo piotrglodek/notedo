@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 // firebase
-import { db, auth } from '../firebase';
+import { db, auth, Timestamp } from '../firebase';
 // components
 import { Spinner, Note } from './';
 // image
@@ -68,6 +68,36 @@ export const NoteList = ({ setToastList }) => {
       });
   };
 
+  const handleUpdate = async (noteId, title, message) => {
+    await db
+      .collection('notes')
+      .doc(noteId)
+      .update({
+        title: title,
+        description: message,
+        date: Timestamp.fromDate(new Date()),
+      })
+      .then(() => {
+        const toastObject = {
+          id: nanoid(),
+          message: 'Your note has been updated sucessfully.',
+          type: 'success',
+        };
+
+        setToastList(arr => [...arr, toastObject]);
+      })
+      .catch(error => {
+        const toastObject = {
+          id: nanoid(),
+          message: `Couldn't update the note. Try again.`,
+          type: 'danger',
+        };
+
+        setToastList(arr => [...arr, toastObject]);
+        console.log(`Couldn't update the note. Error: ${error}`);
+      });
+  };
+
   return (
     <StyledWrapper layout>
       {isFetching ? (
@@ -75,18 +105,30 @@ export const NoteList = ({ setToastList }) => {
           <Spinner />
         </StyledSpinnerWrapper>
       ) : fetchNotesError ? (
-        <>
-          <StyledImage src={errorImage} alt='Error notes image' />
-          <StyledHeading>
-            Ooops, something went wrong. Try refresh page.
-          </StyledHeading>
-          <StyledError>{fetchNotesError}</StyledError>
-        </>
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <StyledImage src={errorImage} alt='Error notes image' />
+            <StyledHeading>
+              Ooops, something went wrong. Try refresh page.
+            </StyledHeading>
+            <StyledError>{fetchNotesError}</StyledError>
+          </motion.div>
+        </AnimatePresence>
       ) : notes.length === 0 ? (
-        <>
-          <StyledImage src={notesImage} alt='Add notes image' />
-          <StyledHeading>You don't have notes. Try create one.</StyledHeading>
-        </>
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <StyledImage src={notesImage} alt='Add notes image' />
+            <StyledHeading>You don't have notes. Try create one.</StyledHeading>
+          </motion.div>
+        </AnimatePresence>
       ) : (
         <StyledGird>
           <AnimatePresence>
@@ -97,7 +139,11 @@ export const NoteList = ({ setToastList }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0 }}
               >
-                <Note note={note} handleDelete={handleDelete} />
+                <Note
+                  note={note}
+                  handleDelete={handleDelete}
+                  handleUpdate={handleUpdate}
+                />
               </motion.div>
             ))}
           </AnimatePresence>
