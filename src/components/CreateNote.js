@@ -38,7 +38,7 @@ export const CreateNote = ({ setToastList }) => {
       id: noteId,
       userId: userUID,
       title: data.noteTitle,
-      description: data.noteDescription.replace(/\n/g, ' \n '),
+      description: data.noteDescription,
       date: Timestamp.fromDate(new Date()),
     };
 
