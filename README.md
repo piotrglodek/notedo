@@ -15,7 +15,10 @@ Notedo is tool that allows you to add, edit and delete notes in any time you wan
 ```
 
 2. Create account in [firebase](http://firebase.google.com/)
-3. Create firebase project, enable sign-in-method via email/password
+3. Create firebase project, enable sign in method via email/password
+   - Go to the <b>Authentication</b>
+   - Go to the <b>sign-in-method</b>
+   - Enable <b>E-mail/password</b>
 4. Create index:
    - Go to the <b>Cloud Firestore</b> section of the Firebase console.
    - Go to the <b>Indexes</b> tab and click <b>Add Index</b>.
