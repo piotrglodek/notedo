@@ -30,6 +30,7 @@ App should automaticly open in browser localhost:[port]
 
 ## Preview
 
+![Notedo desktop](./notedo.png)
 
 ## What I want to fix
 
