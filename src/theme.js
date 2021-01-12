@@ -21,11 +21,11 @@ const theme = {
     xll: '4.2rem',
   },
   fontWeight: {
-    thin: '300',
     regular: '400',
     semiBold: '500',
     bold: '700',
   },
+  borderRadius: '.4rem',
 };
 
 const GlobalStyles = createGlobalStyle`
