@@ -122,7 +122,7 @@ const StyledToast = styled(motion.div)`
   padding: 0.6rem;
   width: 100%;
   max-width: 30rem;
-  border-radius: 0.3rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   display: grid;
   grid-template-columns: 3rem 1fr 3rem;
   grid-template-rows: repeat(2, 3rem);

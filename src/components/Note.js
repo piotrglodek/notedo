@@ -101,7 +101,7 @@ export const Note = ({ note, handleDelete, handleUpdate, ...rest }) => {
 const StyledWrapper = styled.div`
   padding: 1rem 1rem 0.5rem;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 0.3rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
 `;
 
 const StyledHeading = styled.h3`

@@ -142,7 +142,7 @@ const StyledWrapper = styled(motion.div)`
   width: 90%;
   max-width: 60rem;
   border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 0.3rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   padding: 0.6rem 1.2rem;
 `;
 const StyledInputSimulator = styled(motion.div)`

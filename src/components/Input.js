@@ -57,7 +57,7 @@ const StyledInput = styled.input`
   display: block;
   width: 100%;
   padding: 0.8rem 1rem;
-  border-radius: 0.3rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   border: 0.1rem solid rgba(0, 0, 0, 0.5);
   color: inherit;
   font-size: inherit;

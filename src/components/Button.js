@@ -11,7 +11,7 @@ export const Button = ({ label, variant, size, ...rest }) => {
 };
 
 const StyledButton = styled.button`
-  border-radius: 0.4rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};
   transition: all 0.3s ease;
 

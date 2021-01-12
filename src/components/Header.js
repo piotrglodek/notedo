@@ -128,7 +128,7 @@ const StyledModalWrapper = styled.div`
   margin: 0 auto;
   background-color: ${({ theme: { color } }) => color.white};
   padding: 1rem 1.6rem;
-  border-radius: 0.3rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   position: relative;
   z-index: 1;
 `;
