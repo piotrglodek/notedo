@@ -1,3 +1,4 @@
+import { rgba } from 'polished';
 import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
@@ -26,6 +27,8 @@ const theme = {
     bold: '700',
   },
   borderRadius: '.4rem',
+  borderStyle: '0.1rem solid rgba(0,0,0,0.3)',
+  borderFocus: 'rgba(0,0,0,0.5)',
   toast: {
     success: '#5cb85c',
     danger: '#d9534f',

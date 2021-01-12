@@ -100,7 +100,7 @@ export const Note = ({ note, handleDelete, handleUpdate, ...rest }) => {
 
 const StyledWrapper = styled.div`
   padding: 1rem 1rem 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: ${({ theme: { borderStyle } }) => borderStyle};
   border-radius: ${({ theme: { borderRadius } }) => borderRadius};
 `;
 

@@ -59,12 +59,12 @@ const StyledTextarea = styled.textarea`
   width: 100%;
   padding: 0.8rem 1rem;
   border-radius: ${({ theme: { borderRadius } }) => borderRadius};
-  border: 0.1rem solid rgba(0, 0, 0, 0.5);
+  border: ${({ theme: { borderStyle } }) => borderStyle};
   color: inherit;
   font-size: inherit;
   transition: border-color 0.3s ease, color 0.3s ease;
   &:focus {
-    border-color: rgba(0, 0, 0, 0.8);
+    border-color: ${({ theme: { borderFocus } }) => borderFocus};
     color: rgba(0, 0, 0, 0.8);
   }
 

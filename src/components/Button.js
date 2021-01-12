@@ -19,7 +19,7 @@ const StyledButton = styled.button`
     switch (variant) {
       case 'secondary':
         return css`
-          border: 0.1rem solid ${transparentize(0.8, '#000')};
+          border: ${({ theme: { borderStyle } }) => borderStyle};
           color: ${color.primary};
           &:hover {
             background-color: ${transparentize(0.96, '#000')};

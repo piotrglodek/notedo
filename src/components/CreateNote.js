@@ -141,7 +141,7 @@ const StyledWrapper = styled(motion.div)`
   margin: 4rem auto 0 auto;
   width: 90%;
   max-width: 60rem;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  border: ${({ theme: { borderStyle } }) => borderStyle};
   border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   padding: 0.6rem 1.2rem;
 `;
