@@ -129,19 +129,19 @@ const StyledToast = styled(motion.div)`
   grid-column-gap: 0.2rem;
 
   &.success {
-    background-color: #5cb85c;
+    background-color: ${({ theme: { toast } }) => toast.success};
   }
 
   &.danger {
-    background-color: #d9534f;
+    background-color: ${({ theme: { toast } }) => toast.danger};
   }
 
   &.info {
-    background-color: #7300ff;
+    background-color: ${({ theme: { toast } }) => toast.info};
   }
 
   &.warning {
-    background-color: #f0ad4e;
+    background-color: ${({ theme: { toast } }) => toast.warning};
   }
 `;
 

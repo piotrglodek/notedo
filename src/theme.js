@@ -26,6 +26,12 @@ const theme = {
     bold: '700',
   },
   borderRadius: '.4rem',
+  toast: {
+    success: '#5cb85c',
+    danger: '#d9534f',
+    info: '#7300ff',
+    warning: '#f0ad4e',
+  },
 };
 
 const GlobalStyles = createGlobalStyle`
