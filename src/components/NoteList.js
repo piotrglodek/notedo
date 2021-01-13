@@ -173,7 +173,6 @@ const StyledImage = styled.img`
 
 const StyledHeading = styled.h2`
   display: block;
-  color: ${({ theme: { color } }) => color.black};
   letter-spacing: 0.25px;
   font-size: ${({ theme: { fontSize } }) => fontSize.m};
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};

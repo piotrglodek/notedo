@@ -44,7 +44,7 @@ Input.propTypes = {
 const StyledLabel = styled.label`
   display: block;
   margin-bottom: 1rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: ${({ theme: { color } }) => color.gray};
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
 `;
 const StyledLabelText = styled.p`

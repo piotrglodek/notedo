@@ -105,7 +105,6 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledHeading = styled.h3`
-  color: ${({ theme: { color } }) => color.black};
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
   margin-top: 0;
 `;
@@ -137,7 +136,7 @@ const StyledFooterWrapper = styled.div`
 `;
 
 const StyledDeleteIcon = styled(DeleteIcon)`
-  fill: ${({ theme: { color } }) => color.grey};
+  fill: ${({ theme: { color } }) => color.gray};
   transition: fill 0.2s;
 
   &:hover {
@@ -146,7 +145,7 @@ const StyledDeleteIcon = styled(DeleteIcon)`
 `;
 
 const StyledEditIcon = styled(EditIcon)`
-  fill: ${({ theme: { color } }) => color.grey};
+  fill: ${({ theme: { color } }) => color.gray};
   transition: fill 0.2s;
 
   &:hover {
@@ -155,7 +154,7 @@ const StyledEditIcon = styled(EditIcon)`
 `;
 
 const StyledCheckIcon = styled(CheckIcon)`
-  fill: ${({ theme: { color } }) => color.grey};
+  fill: ${({ theme: { color } }) => color.gray};
   transition: fill 0.2s;
 
   &:hover {
@@ -165,7 +164,7 @@ const StyledCheckIcon = styled(CheckIcon)`
 
 const StyledDate = styled.span`
   font-size: 1rem;
-  color: ${({ theme: { color } }) => color.grey};
+  color: ${({ theme: { color } }) => color.gray};
 `;
 
 Note.propTypes = {

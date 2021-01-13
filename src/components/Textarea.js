@@ -45,7 +45,7 @@ Textarea.propTypes = {
 const StyledLabel = styled.label`
   display: block;
   margin-bottom: 1rem;
-  color: rgba(0, 0, 0, 0.6);
+  color: inherit;
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
 `;
 const StyledLabelText = styled.p`
@@ -65,7 +65,7 @@ const StyledTextarea = styled.textarea`
   transition: border-color 0.3s ease, color 0.3s ease;
   &:focus {
     border-color: ${({ theme: { borderFocus } }) => borderFocus};
-    color: rgba(0, 0, 0, 0.8);
+    color: ${({ theme: { colorFocus } }) => colorFocus};
   }
 
   ${({ resize }) =>

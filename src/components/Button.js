@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { transparentize } from 'polished';
 
 export const Button = ({ label, variant, size, ...rest }) => {
   return (
@@ -15,21 +14,21 @@ const StyledButton = styled.button`
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};
   transition: all 0.3s ease;
 
-  ${({ variant, theme: { color } }) => {
+  ${({ variant, theme: { color, borderStyle } }) => {
     switch (variant) {
       case 'secondary':
         return css`
-          border: ${({ theme: { borderStyle } }) => borderStyle};
+          border: ${borderStyle};
           color: ${color.primary};
           &:hover {
-            background-color: ${transparentize(0.96, '#000')};
+            background-color: ${color.buttonHover};
           }
         `;
       // default primary
       default:
         return css`
+          color: ${color.onPrimary};
           background-color: ${color.primary};
-          color: ${color.white};
           &:hover {
             background-color: ${color.primaryTint}};
           }

@@ -146,7 +146,7 @@ const StyledToast = styled(motion.div)`
 `;
 
 const colorWhite = css`
-  ${({ theme: { color } }) => color.white};
+  ${({ theme: { color } }) => color.onPrimary};
 `;
 
 const StyledToastIcon = styled.span`
