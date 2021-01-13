@@ -9,12 +9,12 @@ import { ThemeProvider } from './theme';
 import { StoreProvider } from './store/store';
 
 ReactDOM.render(
-  <ThemeProvider>
-    <StoreProvider>
-      <Router>
+  <StoreProvider>
+    <Router>
+      <ThemeProvider>
         <App />
-      </Router>
-    </StoreProvider>
-  </ThemeProvider>,
+      </ThemeProvider>
+    </Router>
+  </StoreProvider>,
   document.getElementById('root')
 );
