@@ -1,18 +1,40 @@
-import { rgba } from 'polished';
 import {
   ThemeProvider as StyledThemeProvider,
   createGlobalStyle,
 } from 'styled-components';
+// redux for ThemeProvider
+import { useSelector } from 'react-redux';
+import { selectTheme } from './store/reducers/themeSlice';
 
-const theme = {
+export const lightTheme = {
   color: {
     primaryTint: '#7300ff',
     primary: '#6200ee',
     error: '#b00020',
-    grey: '#757575',
-    white: '#ffffff',
-    black: 'rgba(0,0,0,0.85)',
+    background: '#fafafa',
+    surface: '#fafafa',
+    onPrimary: '#ffffff',
+    onBackground: 'rgba(0,0,0,0.8)',
+    onSurface: 'rgba(0,0,0,0.8)',
+    buttonHover: 'rgba(0,0,0,0.05);',
+    gray: 'rgba(0,0,0,0.6);',
   },
+  toast: {
+    success: '#5cb85c',
+    danger: '#d9534f',
+    info: '#7300ff',
+    warning: '#f0ad4e',
+  },
+  borderStyle: '0.1rem solid rgba(0,0,0,0.3)',
+  borderFocus: 'rgba(0,0,0,0.5)',
+  colorFocus: 'rgba(0, 0, 0, 0.8)',
+};
+
+const darkTheme = {};
+
+const pinkTheme = {};
+
+const theme = {
   fontSize: {
     xs: '1.4rem',
     s: '1.6rem',
@@ -27,14 +49,6 @@ const theme = {
     bold: '700',
   },
   borderRadius: '.4rem',
-  borderStyle: '0.1rem solid rgba(0,0,0,0.3)',
-  borderFocus: 'rgba(0,0,0,0.5)',
-  toast: {
-    success: '#5cb85c',
-    danger: '#d9534f',
-    info: '#7300ff',
-    warning: '#f0ad4e',
-  },
 };
 
 const GlobalStyles = createGlobalStyle`
@@ -50,6 +64,8 @@ const GlobalStyles = createGlobalStyle`
       margin:0;
       font-size:1.6rem;
       font-family: 'Roboto', sans-serif;
+      color:${({ theme: { color } }) => color.onBackground};
+      background-color:${({ theme: { color } }) => color.background};
   }
 
   a {
@@ -90,9 +106,18 @@ const GlobalStyles = createGlobalStyle`
   }
 `;
 
-export const ThemeProvider = ({ children }) => (
-  <StyledThemeProvider theme={theme}>
-    <GlobalStyles />
-    {children}
-  </StyledThemeProvider>
-);
+export const ThemeProvider = ({ children }) => {
+  const themeMode = useSelector(selectTheme);
+  const currentTheme =
+    themeMode === 'light'
+      ? Object.assign({}, theme, lightTheme)
+      : themeMode === 'dark'
+      ? Object.assign({}, theme, darkTheme)
+      : Object.assign({}, theme, pinkTheme);
+  return (
+    <StyledThemeProvider theme={currentTheme}>
+      <GlobalStyles />
+      {children}
+    </StyledThemeProvider>
+  );
+};
