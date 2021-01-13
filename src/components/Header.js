@@ -55,7 +55,7 @@ export const Header = () => {
                 />
               </StyledClose>
               <StyledHeading>Create account</StyledHeading>
-              <Register closeModal={handleClose} />
+              <Register />
             </StyledModalWrapper>
           </StyledModal>
         )}
@@ -100,7 +100,6 @@ const StyledHeader = styled.header`
 
 const StyledTitle = styled.span`
   display: block;
-  color: ${({ theme: { color } }) => color.black};
   letter-spacing: 0.25px;
   font-size: ${({ theme: { fontSize } }) => fontSize.m};
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};
@@ -125,7 +124,7 @@ const StyledModalWrapper = styled.div`
   width: 100%;
   max-width: 62.5rem;
   margin: 0 auto;
-  background-color: ${({ theme: { color } }) => color.white};
+  background-color: ${({ theme: { color } }) => color.surface};
   padding: 1rem 1.6rem;
   border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   position: relative;
@@ -138,7 +137,6 @@ const StyledClose = styled.span`
 `;
 const StyledHeading = styled.h1`
   font-size: ${({ theme: { fontSize } }) => fontSize.l};
-  color: ${({ theme: { color } }) => color.black};
   position: relative;
   &::after {
     content: '';
@@ -164,7 +162,6 @@ const StyledWrapper = styled.div`
 `;
 const StyledText = styled.p`
   margin: 0;
-  color: ${({ theme: { color } }) => color.black};
   font-size: ${({ theme: { fontSize } }) => fontSize.xs};
   @media screen and (min-width: 768px) {
     font-size: ${({ theme: { fontSize } }) => fontSize.s};
