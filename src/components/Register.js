@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 // components
 import { Input, Button, Form } from './';
 // react-hook-form
@@ -16,7 +15,7 @@ import { selectAuthState } from '../store/reducers/authSlice';
 // router
 import { Redirect } from 'react-router-dom';
 
-export const Register = ({ closeModal }) => {
+export const Register = () => {
   const [registerError, setRegisterError] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm({
@@ -41,7 +40,6 @@ export const Register = ({ closeModal }) => {
       })
       .catch(error => setRegisterError(error.message));
     reset();
-    closeModal();
   };
 
   const authState = useSelector(selectAuthState);
@@ -82,8 +80,4 @@ export const Register = ({ closeModal }) => {
       <Button type='submit' label='Create account' size='small' />
     </Form>
   );
-};
-
-Register.propTypes = {
-  closeModal: PropTypes.func,
 };
