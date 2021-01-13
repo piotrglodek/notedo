@@ -24,7 +24,7 @@ export const Login = () => {
   const [loginError, setLoginError] = useState('');
   const onSubmit = async data => {
     auth
-      .signInWithEmailAndPassword(data.email, data.password)
+      .signInWithEmailAndPassword(data.loginEmail, data.loginPassword)
       .catch(error => setLoginError(error.message));
     reset();
   };
