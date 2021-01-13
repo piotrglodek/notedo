@@ -22,9 +22,8 @@ export const Header = () => {
   useEffect(() => {
     if (isOpen) {
       document.body.style = `overflow:hidden;`;
-    } else {
-      document.body.style = null;
     }
+    return () => (document.body.style = null);
   }, [isOpen]);
 
   const location = useLocation();
@@ -56,7 +55,7 @@ export const Header = () => {
                 />
               </StyledClose>
               <StyledHeading>Create account</StyledHeading>
-              <Register />
+              <Register closeModal={handleClose} />
             </StyledModalWrapper>
           </StyledModal>
         )}
