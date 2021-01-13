@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 // components
 import { Input, Button, Form } from './';
 // react-hook-form
@@ -8,14 +9,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // schema
 import { registerSchema } from '../schema';
 // firebase
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 // redux
 import { useSelector } from 'react-redux';
 import { selectAuthState } from '../store/reducers/authSlice';
 // router
 import { Redirect } from 'react-router-dom';
 
-export const Register = () => {
+export const Register = ({ closeModal }) => {
   const [registerError, setRegisterError] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm({
@@ -25,8 +26,22 @@ export const Register = () => {
   const onSubmit = async data => {
     await auth
       .createUserWithEmailAndPassword(data.email, data.password)
+      .then(async () => {
+        await db
+          .collection('users')
+          .doc(auth.currentUser.uid)
+          .set({
+            theme: 'light',
+          })
+          .catch(err =>
+            console.log(
+              `Register error, couldn't create theme for user: ${err}`
+            )
+          );
+      })
       .catch(error => setRegisterError(error.message));
     reset();
+    closeModal();
   };
 
   const authState = useSelector(selectAuthState);
@@ -67,4 +82,8 @@ export const Register = () => {
       <Button type='submit' label='Create account' size='small' />
     </Form>
   );
+};
+
+Register.propTypes = {
+  closeModal: PropTypes.func,
 };
