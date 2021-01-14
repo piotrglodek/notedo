@@ -36,10 +36,6 @@ export const Toast = props => {
     }
   };
 
-  // const deleteToast = id => {
-  //   setToastList(toastList.filter(item => item.id !== id));
-  // };
-
   const deleteToast = useCallback(
     id => {
       setToastList(toastList.filter(item => item.id !== id));
