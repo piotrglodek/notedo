@@ -24,7 +24,7 @@ export const Login = () => {
   const [loginError, setLoginError] = useState('');
   const onSubmit = async data => {
     auth
-      .signInWithEmailAndPassword(data.email, data.password)
+      .signInWithEmailAndPassword(data.loginEmail, data.loginPassword)
       .catch(error => setLoginError(error.message));
     reset();
   };
@@ -38,20 +38,20 @@ export const Login = () => {
   return (
     <Form onSubmit={handleSubmit(onSubmit)} formError={loginError}>
       <Input
-        error={errors.email?.message}
+        error={errors.loginEmail?.message}
         ref={register}
-        name='email'
+        name='loginEmail'
         label='E-mail:'
-        id='email'
+        id='loginEmail'
         type='email'
         required
       />
       <Input
-        error={errors.password?.message}
+        error={errors.loginPassword?.message}
         ref={register}
-        name='password'
+        name='loginPassword'
         label='Password:'
-        id='password'
+        id='loginPassword'
         type='password'
         required
       />

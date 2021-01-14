@@ -36,10 +36,6 @@ export const Toast = props => {
     }
   };
 
-  // const deleteToast = id => {
-  //   setToastList(toastList.filter(item => item.id !== id));
-  // };
-
   const deleteToast = useCallback(
     id => {
       setToastList(toastList.filter(item => item.id !== id));
@@ -122,31 +118,31 @@ const StyledToast = styled(motion.div)`
   padding: 0.6rem;
   width: 100%;
   max-width: 30rem;
-  border-radius: 0.3rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   display: grid;
   grid-template-columns: 3rem 1fr 3rem;
   grid-template-rows: repeat(2, 3rem);
   grid-column-gap: 0.2rem;
 
   &.success {
-    background-color: #5cb85c;
+    background-color: ${({ theme: { toast } }) => toast.success};
   }
 
   &.danger {
-    background-color: #d9534f;
+    background-color: ${({ theme: { toast } }) => toast.danger};
   }
 
   &.info {
-    background-color: #7300ff;
+    background-color: ${({ theme: { toast } }) => toast.info};
   }
 
   &.warning {
-    background-color: #f0ad4e;
+    background-color: ${({ theme: { toast } }) => toast.warning};
   }
 `;
 
 const colorWhite = css`
-  ${({ theme: { color } }) => color.white};
+  ${({ theme: { color } }) => color.onPrimary};
 `;
 
 const StyledToastIcon = styled.span`

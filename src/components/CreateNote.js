@@ -141,13 +141,12 @@ const StyledWrapper = styled(motion.div)`
   margin: 4rem auto 0 auto;
   width: 90%;
   max-width: 60rem;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 0.3rem;
+  border: 0.1rem solid ${({ theme: { color } }) => color.gray};
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   padding: 0.6rem 1.2rem;
 `;
 const StyledInputSimulator = styled(motion.div)`
   cursor: text;
-  color: rgba(0, 0, 0, 0.7);
   font-size: 1.5rem;
   height: 3.2rem;
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};

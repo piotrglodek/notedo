@@ -8,14 +8,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 // schema
 import { registerSchema } from '../schema';
 // firebase
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 // redux
 import { useSelector } from 'react-redux';
 import { selectAuthState } from '../store/reducers/authSlice';
 // router
 import { Redirect } from 'react-router-dom';
 
-export const Register = () => {
+export const Register = ({ handleClose }) => {
   const [registerError, setRegisterError] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm({
@@ -23,8 +23,22 @@ export const Register = () => {
     mode: 'onChange',
   });
   const onSubmit = async data => {
+    handleClose();
     await auth
       .createUserWithEmailAndPassword(data.email, data.password)
+      .then(async () => {
+        await db
+          .collection('users')
+          .doc(auth.currentUser.uid)
+          .set({
+            theme: 'light',
+          })
+          .catch(err =>
+            console.log(
+              `Register error, couldn't create theme for user: ${err}`
+            )
+          );
+      })
       .catch(error => setRegisterError(error.message));
     reset();
   };

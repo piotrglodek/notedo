@@ -100,12 +100,11 @@ export const Note = ({ note, handleDelete, handleUpdate, ...rest }) => {
 
 const StyledWrapper = styled.div`
   padding: 1rem 1rem 0.5rem;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 0.3rem;
+  border: 0.1rem solid ${({ theme: { color } }) => color.gray};
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
 `;
 
 const StyledHeading = styled.h3`
-  color: ${({ theme: { color } }) => color.black};
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
   margin-top: 0;
 `;
@@ -131,13 +130,11 @@ const StyledFooter = styled.footer`
 `;
 
 const StyledFooterWrapper = styled.div`
-  & :first-child {
-    margin-right: 1rem;
-  }
+  display: flex;
 `;
 
 const StyledDeleteIcon = styled(DeleteIcon)`
-  fill: ${({ theme: { color } }) => color.grey};
+  fill: ${({ theme: { color } }) => color.gray};
   transition: fill 0.2s;
 
   &:hover {
@@ -146,26 +143,26 @@ const StyledDeleteIcon = styled(DeleteIcon)`
 `;
 
 const StyledEditIcon = styled(EditIcon)`
-  fill: ${({ theme: { color } }) => color.grey};
+  fill: ${({ theme: { color } }) => color.gray};
   transition: fill 0.2s;
 
   &:hover {
-    fill: ${({ theme: { color } }) => color.primaryTint};
+    fill: ${({ theme: { color } }) => color.primary};
   }
 `;
 
 const StyledCheckIcon = styled(CheckIcon)`
-  fill: ${({ theme: { color } }) => color.grey};
+  fill: ${({ theme: { color } }) => color.gray};
   transition: fill 0.2s;
 
   &:hover {
-    fill: ${({ theme: { color } }) => color.primaryTint};
+    fill: ${({ theme: { color } }) => color.primary};
   }
 `;
 
 const StyledDate = styled.span`
   font-size: 1rem;
-  color: ${({ theme: { color } }) => color.grey};
+  color: ${({ theme: { color } }) => color.gray};
 `;
 
 Note.propTypes = {

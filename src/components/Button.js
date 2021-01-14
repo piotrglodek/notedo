@@ -11,7 +11,7 @@ export const Button = ({ label, variant, size, ...rest }) => {
 };
 
 const StyledButton = styled.button`
-  border-radius: 0.4rem;
+  border-radius: ${({ theme: { borderRadius } }) => borderRadius};
   font-weight: ${({ theme: { fontWeight } }) => fontWeight.semiBold};
   transition: all 0.3s ease;
 
@@ -19,17 +19,17 @@ const StyledButton = styled.button`
     switch (variant) {
       case 'secondary':
         return css`
-          border: 0.1rem solid ${transparentize(0.8, '#000')};
+          border: 0.1rem solid ${color.primary};
           color: ${color.primary};
           &:hover {
-            background-color: ${transparentize(0.96, '#000')};
+            background-color: ${transparentize(0.9, color.primary)};
           }
         `;
       // default primary
       default:
         return css`
+          color: ${color.onPrimary};
           background-color: ${color.primary};
-          color: ${color.white};
           &:hover {
             background-color: ${color.primaryTint}};
           }

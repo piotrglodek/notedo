@@ -46,7 +46,6 @@ const StyledCol = styled.div`
 `;
 const StyledHeading = styled.h1`
   font-size: ${({ theme: { fontSize } }) => fontSize.l};
-  color: ${({ theme: { color } }) => color.black};
   position: relative;
   &::after {
     content: '';
@@ -71,8 +70,7 @@ const StyledImage = styled.img`
 `;
 const StyledHeading2 = styled.h2`
   font-size: ${({ theme: { fontSize } }) => fontSize.m};
-  color: ${({ theme: { color } }) => color.black};
 `;
 const StyledText = styled.p`
-  color: ${({ theme: { color } }) => color.grey};
+  color: ${({ theme: { color } }) => color.gray};
 `;
