@@ -100,7 +100,7 @@ export const Note = ({ note, handleDelete, handleUpdate, ...rest }) => {
 
 const StyledWrapper = styled.div`
   padding: 1rem 1rem 0.5rem;
-  border: ${({ theme: { borderStyle } }) => borderStyle};
+  border: 0.1rem solid ${({ theme: { color } }) => color.gray};
   border-radius: ${({ theme: { borderRadius } }) => borderRadius};
 `;
 
@@ -130,9 +130,7 @@ const StyledFooter = styled.footer`
 `;
 
 const StyledFooterWrapper = styled.div`
-  & :first-child {
-    margin-right: 1rem;
-  }
+  display: flex;
 `;
 
 const StyledDeleteIcon = styled(DeleteIcon)`
@@ -149,7 +147,7 @@ const StyledEditIcon = styled(EditIcon)`
   transition: fill 0.2s;
 
   &:hover {
-    fill: ${({ theme: { color } }) => color.primaryTint};
+    fill: ${({ theme: { color } }) => color.primary};
   }
 `;
 
@@ -158,7 +156,7 @@ const StyledCheckIcon = styled(CheckIcon)`
   transition: fill 0.2s;
 
   &:hover {
-    fill: ${({ theme: { color } }) => color.primaryTint};
+    fill: ${({ theme: { color } }) => color.primary};
   }
 `;
 
