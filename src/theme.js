@@ -6,18 +6,18 @@ import {
 import { useSelector } from 'react-redux';
 import { selectTheme } from './store/reducers/themeSlice';
 
-export const lightTheme = {
+const lightTheme = {
   color: {
-    primaryTint: '#7300ff',
-    primary: '#6200ee',
-    error: '#b00020',
-    background: '#fafafa',
-    surface: '#fafafa',
-    onPrimary: '#ffffff',
-    onBackground: 'rgba(0,0,0,0.8)',
-    onSurface: 'rgba(0,0,0,0.8)',
-    buttonHover: 'rgba(0,0,0,0.05);',
-    gray: 'rgba(0,0,0,0.6);',
+    primaryTint: '#7300FF',
+    primary: '#6200EE',
+    error: '#B00020',
+    background: '#FFFFFF',
+    surface: '#FFFFFF',
+    onPrimary: '#FFFFFF',
+    onBackground: '#262626',
+    onSurface: '#262626',
+    gray: '#B3B3B3',
+    grayShade: '#A3A3A3',
   },
   toast: {
     success: '#5cb85c',
@@ -25,14 +25,49 @@ export const lightTheme = {
     info: '#7300ff',
     warning: '#f0ad4e',
   },
-  borderStyle: '0.1rem solid rgba(0,0,0,0.3)',
-  borderFocus: 'rgba(0,0,0,0.5)',
-  colorFocus: 'rgba(0, 0, 0, 0.8)',
 };
 
-const darkTheme = {};
+const darkTheme = {
+  color: {
+    primaryTint: '#D0B3FA',
+    primary: '#B180F7',
+    error: '#D88090',
+    background: '#212121',
+    surface: '#303030',
+    onPrimary: '#272727',
+    onBackground: '#f3f3f3',
+    onSurface: '#f3f3f3',
+    gray: '#D9D9D9',
+    grayShade: '#BEBEBE',
+  },
+  toast: {
+    success: '#AEDCAE',
+    danger: '#ECA9A7',
+    info: '#B980FF',
+    warning: '#F8D6A7',
+  },
+};
 
-const pinkTheme = {};
+const pinkTheme = {
+  color: {
+    primaryTint: '#FFADB8',
+    primary: '#FF8A99',
+    error: '#B00020',
+    background: '#FFFFFF',
+    surface: '#FFFFFF',
+    onPrimary: '#272727',
+    onBackground: '#FF8A99',
+    onSurface: '#272727',
+    gray: '#FFADB8',
+    grayShade: '#FF9CA8',
+  },
+  toast: {
+    success: '#5cb85c',
+    danger: '#d9534f',
+    info: '#7300ff',
+    warning: '#f0ad4e',
+  },
+};
 
 const theme = {
   fontSize: {
