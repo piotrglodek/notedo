@@ -15,7 +15,7 @@ import { selectAuthState } from '../store/reducers/authSlice';
 // router
 import { Redirect } from 'react-router-dom';
 
-export const Register = () => {
+export const Register = ({ handleClose }) => {
   const [registerError, setRegisterError] = useState('');
 
   const { register, handleSubmit, errors, reset } = useForm({
@@ -23,6 +23,7 @@ export const Register = () => {
     mode: 'onChange',
   });
   const onSubmit = async data => {
+    handleClose();
     await auth
       .createUserWithEmailAndPassword(data.email, data.password)
       .then(async () => {
