@@ -10,15 +10,13 @@ export const IconButton = ({ icon, ariaLabel, ...rest }) => {
 };
 
 const StyledIconButton = styled.button`
-  width: 2.4rem;
-  height: 2.4rem;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: grid;
+  place-items: center;
   border-radius: 50%;
   background-color: transparent;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
 `;
 
 IconButton.propTypes = {
