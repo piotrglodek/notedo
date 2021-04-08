@@ -3,6 +3,10 @@
 Notedo is tool that allows you to add, edit and delete notes in any time you want.
 [Notedo site](https://notedo.netlify.app/)
 
+## Pre login
+login: guest@guest.com
+password: qwerty
+
 ## Installation
 
 1. Clone repo and install dependencies
